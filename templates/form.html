@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <title>{{ area }} Checklist</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+  <h1>{{ area }} Checklist</h1>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+    {% for cat, msg in messages %}
+      <li>{{ msg }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  {% endwith %}
+
+  <form method="post" enctype="multipart/form-data">
+    <label>Your name</label>
+    <select name="worker" required>
+      <option value="">-- pick your name --</option>
+      {% for w in workers %}
+      <option value="{{ w }}">{{ w }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Checklist (initial each line)</label>
+    <textarea name="checklist" rows="12" required>{{ checklist }}</textarea>
+
+    <label>Photo (optional)</label>
+    <input type="file" name="photo">
+
+    <label>Notes (optional)</label>
+    <input type="text" name="notes">
+
+    <button type="submit" class="btn">Submit</button>
+  </form>
+
+  <p><a href="{{ url_for('index') }}">Back</a></p>
+</div>
+</body>
+</html>

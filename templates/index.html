@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head>
+  <title>JL3860CCS</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+  <h1>JL3860CCS — Select Area</h1>
+  {% for a in areas %}
+  <a class="area-card" href="{{ url_for('form', area=a) }}">{{ a }}</a>
+  {% endfor %}
+  <p><a href="{{ url_for('dashboard') }}">Manager Dashboard</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <title>JL3860CCS Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+  <h1>Manager Dashboard</h1>
+  <table class="submissions">
+    <tr>
+      <th>ID</th><th>Area</th><th>Worker</th><th>Initials</th><th>Timestamp</th><th>Notes</th><th>Mgr</th><th>Approved</th><th>Action</th>
+    </tr>
+    {% for r in rows %}
+    <tr>
+      <td>{{ r['id'] }}</td>
+      <td>{{ r['area'] }}</td>
+      <td>{{ r['worker'] }}</td>
+      <td>{{ r['initials'] }}</td>
+      <td>{{ r['timestamp'] }}</td>
+      <td>{{ r['notes'] }}</td>
+      <td>{{ r['manager_initials'] }}</td>
+      <td>{{ 'Yes' if r['approved'] else 'No' }}</td>
+      <td>
+        {% if not r['approved'] %}
+        <form method="post" action="{{ url_for('approve', submission_id=r['id']) }}">
+          <input type="text" name="manager_initials" placeholder="Initials" required>
+          <button class="btn">Approve</button>
+        </form>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <p><a href="{{ url_for('index') }}">Back</a></p>
+</div>
+</body>
+</html>
