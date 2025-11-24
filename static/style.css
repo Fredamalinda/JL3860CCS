@@ -5,3 +5,53 @@ h1 { color: #b00; }
 .btn { background: #b00; color: white; border: none; padding: 10px; cursor: pointer; }
 .submissions { width: 100%; border-collapse: collapse; }
 .submissions td, .submissions th { border: 1px solid #ccc; padding: 4px; }
+
+/* Swipe Tabs */
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  background: black;
+  border-bottom: 3px solid red;
+}
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 18px;
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+  border-right: 2px solid red;
+}
+.tab.active {
+  background: red;
+  font-weight: bold;
+}
+
+/* Bigger interface */
+.container {
+  font-size: 22px;
+}
+
+select, textarea, input[type='file'], input[type='checkbox'] {
+  font-size: 22px;
+}
+
+.tasklist li {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.btn {
+  width: 100%;
+  font-size: 26px;
+  background: red;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+.alert.success {
+  color: white;
+  background: green;
+  padding: 10px;
+  font-size: 20px;
+}

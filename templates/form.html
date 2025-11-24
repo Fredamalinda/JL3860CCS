@@ -1,42 +1,58 @@
-<h2>{{ area }}</h2>
+<!doctype html>
+<html>
+<head>
+  <title>{{ area }} Checklist</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, msg in messages %}
-      <p style="color: green; font-size: 22px; font-weight: bold;">{{ msg }}</p>
+<div class="tabs">
+  {% for a in areas %}
+    <a class="tab {% if a == area %}active{% endif %}" href="{{ url_for('form', area=a) }}">{{ a }}</a>
+  {% endfor %}
+</div>
+
+<div class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, msg in messages %}
+        <p class="alert {{ category }}">{{ msg }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <h2>{{ area }} Checklist</h2>
+
+  <h3>Tasks Required:</h3>
+  <ul class="tasklist">
+    {% for t in checklist_items %}
+      <li>{{ t }}</li>
     {% endfor %}
-  {% endif %}
-{% endwith %}
+  </ul>
 
-<form method="post" enctype="multipart/form-data">
-    <label>Your Name:</label>
+  <form method="post" enctype="multipart/form-data">
+    <label>Worker Name:</label>
     <select name="worker" required>
-        {% for w in workers %}
-        <option>{{ w }}</option>
-        {% endfor %}
+      {% for w in workers %}
+        <option value="{{ w }}">{{ w }}</option>
+      {% endfor %}
     </select>
 
-    <br><br>
-
-    <label style="font-size: 20px;">
-        <input type="checkbox" name="completed" required>
-        I completed all tasks on this checklist
+    <label>
+      <input type="checkbox" name="completed" required>
+      I confirm all tasks were completed
     </label>
 
-    <br><br>
-
-    <label>Photo (optional):</label>
-    <input type="file" name="photo">
-
-    <br><br>
+    <label>Upload Photo (optional):</label>
+    <input type="file" name="photo" accept="image/*">
 
     <label>Notes (optional):</label>
     <textarea name="notes"></textarea>
 
-    <br><br>
+    <button class="btn">Submit</button>
+  </form>
 
-    <button type="submit"
-        style="background:red;color:white;font-size:28px;padding:20px;border:none;border-radius:12px;">
-        Submit
-    </button>
-</form>
+  <p><a href="/">Back</a></p>
+</div>
+</body>
+</html>

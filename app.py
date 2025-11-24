@@ -3,10 +3,10 @@ from werkzeug.utils import secure_filename
 import sqlite3, os, datetime
 import pytz
 
-def format_timestamp(ts):
-    utc = datetime.datetime.fromisoformat(ts)
-    denver = utc.replace(tzinfo=datetime.timezone.utc).astimezone(pytz.timezone("America/Denver"))
-    return denver.strftime("%b %d, %Y — %I:%M %p")
+MST = pytz.timezone('America/Denver')
+def format_timestamp():
+    return datetime.datetime.now(MST).strftime("%b %d, %Y • %I:%M %p")
+
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -76,9 +76,11 @@ def form(area):
         ]
     }
 
+    checklist_items = default_checklists[area]
+
     if request.method == 'POST':
         worker = request.form.get('worker')
-        checklist_text = request.form.get('checklist')
+        completed = 1 if request.form.get('completed') == 'on' else 0
         note = request.form.get('notes')
         photo = request.files.get('photo')
         filename = None
@@ -87,19 +89,20 @@ def form(area):
             filename = datetime.datetime.utcnow().strftime('%Y%m%d%H%M%S_') + secure_filename(photo.filename)
             photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        ts = datetime.datetime.utcnow().isoformat()
+        ts = format_timestamp()
+
         conn = get_db()
         cur = conn.cursor()
         cur.execute(
-    "INSERT INTO submissions (area, worker, completed, photo, notes, timestamp, manager_initials) VALUES (?,?,?,?,?,?,?)",
-    (area, worker, int('completed' in request.form), filename, note, ts, '')
-)
+            "INSERT INTO submissions (area, worker, completed, photo, notes, timestamp, manager_initials) VALUES (?,?,?,?,?,?,?)",
+            (area, worker, completed, filename, note, ts, '')
+        )
         conn.commit()
         conn.close()
         flash('Submitted successfully!', 'success')
         return redirect(url_for('form', area=area))
 
-    return render_template('form.html', area=area, workers=workers, checklist='\n'.join(['[ ] '+t for t in default_checklists[area]]))
+    return render_template('form.html', area=area, workers=workers, checklist_items=checklist_items, areas=AREAS)
 
 def worker_initials(name):
     parts = name.split()
