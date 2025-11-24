@@ -10,7 +10,7 @@ CREATE TABLE submissions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     area TEXT NOT NULL,
     worker TEXT NOT NULL,
-    completed INTEGER DEFAULT 0,     -- 1 = checked / 0 = not checked
+    completed INTEGER DEFAULT 0,    
     photo TEXT,
     notes TEXT,
     timestamp TEXT NOT NULL,

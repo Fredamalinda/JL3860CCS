@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file, flash, session
 from werkzeug.utils import secure_filename
-import sqlite3, os, datetime, pytz
+import sqlite3, os, datetime
+import pytz
 
+pip install pytz
 def format_timestamp(ts):
     utc = datetime.datetime.fromisoformat(ts)
     denver = utc.replace(tzinfo=datetime.timezone.utc).astimezone(pytz.timezone("America/Denver"))
