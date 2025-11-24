@@ -10,7 +10,6 @@ def format_timestamp(ts):
     return denver.strftime("%b %d, %Y — %I:%M %p")
 
 =======
->>>>>>> 28b3cc7 (after gh direct edit)
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
