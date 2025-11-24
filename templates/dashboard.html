@@ -16,7 +16,7 @@
       <td>{{ r['id'] }}</td>
       <td>{{ r['area'] }}</td>
       <td>{{ r['worker'] }}</td>
-      <td>{{ r['initials'] }}</td>
+      <td>{{ "YES" if row['completed'] else "NO" }}</td>
       <td>{{ r['timestamp'] }}</td>
       <td>{{ r['notes'] }}</td>
       <td>{{ r['manager_initials'] }}</td>
