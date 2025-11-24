@@ -80,9 +80,9 @@ def form(area):
         conn = get_db()
         cur = conn.cursor()
         cur.execute(
-            "INSERT INTO submissions (area, worker, initials, checklist, photo, notes, timestamp, manager_initials) VALUES (?,?,?,?,?,?,?,?)",
-            (area, worker, worker_initials(worker), checklist_text, filename, note, ts, '')
-        )
+    "INSERT INTO submissions (area, worker, completed, photo, notes, timestamp, manager_initials) VALUES (?,?,?,?,?,?,?)",
+    (area, worker, int('completed' in request.form), filename, note, ts, '')
+)
         conn.commit()
         conn.close()
         flash('Submitted successfully!', 'success')

@@ -3,17 +3,25 @@ CREATE TABLE IF NOT EXISTS workers (
     name TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS submissions (
+DROP TABLE IF EXISTS submissions;
+
+CREATE TABLE submissions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     area TEXT NOT NULL,
     worker TEXT NOT NULL,
-    initials TEXT,
-    checklist TEXT,
+    completed INTEGER DEFAULT 0,     -- 1 = checked / 0 = not checked
     photo TEXT,
     notes TEXT,
     timestamp TEXT NOT NULL,
     manager_initials TEXT,
     approved INTEGER DEFAULT 0
+);
+
+DROP TABLE IF EXISTS workers;
+
+CREATE TABLE workers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
 );
 
 INSERT INTO workers (name) VALUES
