@@ -3,11 +3,14 @@ from werkzeug.utils import secure_filename
 import sqlite3, os, datetime
 import pytz
 
+<<<<<<< HEAD
 def format_timestamp(ts):
     utc = datetime.datetime.fromisoformat(ts)
     denver = utc.replace(tzinfo=datetime.timezone.utc).astimezone(pytz.timezone("America/Denver"))
     return denver.strftime("%b %d, %Y — %I:%M %p")
 
+=======
+>>>>>>> 28b3cc7 (after gh direct edit)
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -17,6 +20,11 @@ def get_db():
     conn = sqlite3.connect(DB)
     conn.row_factory = sqlite3.Row
     return conn
+
+def format_timestamp(ts):
+    utc = datetime.datetime.fromisoformat(ts)
+    denver = utc.replace(tzinfo=datetime.timezone.utc).astimezone(pytz.timezone("America/Denver"))
+    return denver.strftime("%b %d, %Y — %I:%M %p")
 
 def init_db():
     conn = get_db()
