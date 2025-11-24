@@ -1,9 +1,10 @@
-CREATE TABLE IF NOT EXISTS workers (
+DROP TABLE IF EXISTS workers;
+DROP TABLE IF EXISTS submissions;
+
+CREATE TABLE workers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL
 );
-
-DROP TABLE IF EXISTS submissions;
 
 CREATE TABLE submissions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -15,13 +16,6 @@ CREATE TABLE submissions (
     timestamp TEXT NOT NULL,
     manager_initials TEXT,
     approved INTEGER DEFAULT 0
-);
-
-DROP TABLE IF EXISTS workers;
-
-CREATE TABLE workers (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL
 );
 
 INSERT INTO workers (name) VALUES
