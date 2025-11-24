@@ -1,6 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file, flash, session
 from werkzeug.utils import secure_filename
-import sqlite3, os, datetime
+import sqlite3, os, datetime, pytz
+
+def format_timestamp(ts):
+    utc = datetime.datetime.fromisoformat(ts)
+    denver = utc.replace(tzinfo=datetime.timezone.utc).astimezone(pytz.timezone("America/Denver"))
+    return denver.strftime("%b %d, %Y — %I:%M %p")
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -130,13 +135,14 @@ def approve(submission_id):
     flash('Approved', 'success')
     return redirect(url_for('dashboard'))
 
-if __name__ == '__main__':
-    if not os.path.exists(DB):
-        init_db()
-    app.run(host='0.0.0.0', port=8000, debug=True)
-
 @app.route('/logout')
 def logout():
     session.pop("manager_logged_in", None)
     flash("Logged out", "info")
     return redirect(url_for('manager_login'))
+
+if __name__ == '__main__':
+    if not os.path.exists(DB):
+        init_db()
+    app.run(host='0.0.0.0', port=8000, debug=True)
+

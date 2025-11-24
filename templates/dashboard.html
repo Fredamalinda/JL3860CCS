@@ -17,7 +17,7 @@
       <td>{{ r['area'] }}</td>
       <td>{{ r['worker'] }}</td>
       <td>{{ "YES" if r['completed'] else "NO" }}</td>
-      <td>{{ r['timestamp'] }}</td>
+      <td>{{ format_timestamp(r['timestamp']) }}</td>
       <td>{{ r['notes'] }}</td>
       <td>{{ r['manager_initials'] }}</td>
       <td>{{ 'Yes' if r['approved'] else 'No' }}</td>
