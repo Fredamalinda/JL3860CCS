@@ -3,7 +3,6 @@ from werkzeug.utils import secure_filename
 import sqlite3, os, datetime
 import pytz
 
-<<<<<<< HEAD
 def format_timestamp(ts):
     utc = datetime.datetime.fromisoformat(ts)
     denver = utc.replace(tzinfo=datetime.timezone.utc).astimezone(pytz.timezone("America/Denver"))
