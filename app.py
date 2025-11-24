@@ -118,7 +118,7 @@ def dashboard():
     conn = get_db()
     rows = conn.execute("SELECT * FROM submissions ORDER BY id DESC LIMIT 500").fetchall()
     conn.close()
-    return render_template('dashboard.html', rows=rows)
+    return render_template('dashboard.html', rows=rows, format_timestamp=format_timestamp)
    
 @app.route('/manager-login', methods=['GET', 'POST'])
 def manager_login():

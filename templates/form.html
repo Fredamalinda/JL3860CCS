@@ -1,5 +1,13 @@
 <h2>{{ area }}</h2>
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, msg in messages %}
+      <p style="color: green; font-size: 22px; font-weight: bold;">{{ msg }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
 <form method="post" enctype="multipart/form-data">
     <label>Your Name:</label>
     <select name="worker" required>
