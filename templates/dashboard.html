@@ -9,14 +9,14 @@
   <h1>Manager Dashboard</h1>
   <table class="submissions">
     <tr>
-      <th>ID</th><th>Area</th><th>Worker</th><th>Initials</th><th>Timestamp</th><th>Notes</th><th>Mgr</th><th>Approved</th><th>Action</th>
+      <th>ID</th><th>Area</th><th>Worker</th><th>Completed</th><th>Timestamp</th><th>Notes</th><th>Mgr</th><th>Approved</th><th>Action</th>
     </tr>
     {% for r in rows %}
     <tr>
       <td>{{ r['id'] }}</td>
       <td>{{ r['area'] }}</td>
       <td>{{ r['worker'] }}</td>
-      <td>{{ "YES" if row['completed'] else "NO" }}</td>
+      <td>{{ "YES" if r['completed'] else "NO" }}</td>
       <td>{{ r['timestamp'] }}</td>
       <td>{{ r['notes'] }}</td>
       <td>{{ r['manager_initials'] }}</td>
