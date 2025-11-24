@@ -30,27 +30,36 @@
     {% endfor %}
   </ul>
 
-  <form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
+
+  <div class="form-section">
     <label>Worker Name:</label>
     <select name="worker" required>
       {% for w in workers %}
         <option value="{{ w }}">{{ w }}</option>
       {% endfor %}
     </select>
+  </div>
 
+  <div class="form-section">
     <label>
       <input type="checkbox" name="completed" required>
       I confirm all tasks were completed
     </label>
+  </div>
 
+  <div class="form-section">
     <label>Upload Photo (optional):</label>
     <input type="file" name="photo" accept="image/*">
+  </div>
 
+  <div class="form-section">
     <label>Notes (optional):</label>
     <textarea name="notes"></textarea>
+  </div>
 
-    <button class="btn">Submit</button>
-  </form>
+  <button class="btn">Submit</button>
+</form>
 
   <p><a href="/">Back</a></p>
 </div>
