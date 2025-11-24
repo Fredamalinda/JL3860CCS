@@ -116,7 +116,7 @@ def dashboard():
         return redirect(url_for('manager_login'))
 
     conn = get_db()
-    rows = conn.execute("SELECT * FROM submissions ORDER BY id DESC LIMIT 500").fetchall()
+    rows = conn.execute("SELECT * FROM submissions ORDER BY id DESC").fetchall()
     conn.close()
     return render_template('dashboard.html', rows=rows, format_timestamp=format_timestamp)
    
@@ -143,6 +143,10 @@ def approve(submission_id):
     conn.close()
     flash('Approved', 'success')
     return redirect(url_for('dashboard'))
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
 @app.route('/logout')
 def logout():

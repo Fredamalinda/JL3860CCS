@@ -9,7 +9,7 @@
   <h1>Manager Dashboard</h1>
   <table class="submissions">
     <tr>
-      <th>ID</th><th>Area</th><th>Worker</th><th>Completed</th><th>Timestamp</th><th>Notes</th><th>Mgr</th><th>Approved</th><th>Action</th>
+      <th>ID</th><th>Area</th><th>Worker</th><th>Completed</th><th>Photo</th><th>Timestamp</th><th>Notes</th><th>Mgr</th><th>Approved</th><th>Action</th>
     </tr>
     {% for r in rows %}
     <tr>
@@ -17,6 +17,13 @@
       <td>{{ r['area'] }}</td>
       <td>{{ r['worker'] }}</td>
       <td>{{ "YES" if r['completed'] else "NO" }}</td>
+      <td>
+        {% if r['photo'] %}
+          <a href="/uploads/{{ r['photo'] }}" target="_blank">View</a>
+        {% else %}
+          —
+        {% endif %}
+      </td>
       <td>{{ format_timestamp(r['timestamp']) }}</td>
       <td>{{ r['notes'] }}</td>
       <td>{{ r['manager_initials'] }}</td>
