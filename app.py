@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file, flash
+from flask import Flask, render_template, request, redirect, url_for, send_file, flash, session
 from werkzeug.utils import secure_filename
 import sqlite3, os, datetime
 
@@ -24,6 +24,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = 'replace-with-a-random-secret-key'
 
 AREAS = ['Upper Bay','Lower Bay','Lobby']
+MANAGER_PASSWORD = "GriffinFL80601"
 
 @app.route('/')
 def index():
@@ -95,12 +96,26 @@ def worker_initials(name):
         return (parts[0][0] + parts[-1][0]).upper()
     return name[:2].upper()
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
+    if not session.get("manager_logged_in"):
+        return redirect(url_for('manager_login'))
+
     conn = get_db()
     rows = conn.execute("SELECT * FROM submissions ORDER BY id DESC LIMIT 500").fetchall()
     conn.close()
     return render_template('dashboard.html', rows=rows)
+   
+@app.route('/manager-login', methods=['GET', 'POST'])
+def manager_login():
+    if request.method == 'POST':
+        if request.form.get('password') == MANAGER_PASSWORD:
+            session["manager_logged_in"] = True
+            return redirect(url_for('dashboard'))
+        else:
+            flash("Incorrect password", "danger")
+
+    return render_template('manager_login.html')
 
 @app.route('/approve/<int:submission_id>', methods=['POST'])
 def approve(submission_id):
@@ -119,3 +134,9 @@ if __name__ == '__main__':
     if not os.path.exists(DB):
         init_db()
     app.run(host='0.0.0.0', port=8000, debug=True)
+
+@app.route('/logout')
+def logout():
+    session.pop("manager_logged_in", None)
+    flash("Logged out", "info")
+    return redirect(url_for('manager_login'))

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manager Login</title>
+</head>
+<body style="font-family: Arial; text-align:center; margin-top: 50px;">
+    <h2>Manager Login</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for cat, msg in messages %}
+          <p style="color:red;">{{ msg }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <input type="password" name="password" placeholder="Password" style="font-size: 20px; padding: 10px;">
+        <button type="submit" style="font-size: 20px; padding: 10px;">Login</button>
+    </form>
+</body>
+</html>
