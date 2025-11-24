@@ -89,7 +89,7 @@ def form(area):
             filename = datetime.datetime.utcnow().strftime('%Y%m%d%H%M%S_') + secure_filename(photo.filename)
             photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        ts = format_timestamp()
+        ts = datetime.datetime.utcnow().isoformat()
 
         conn = get_db()
         cur = conn.cursor()
