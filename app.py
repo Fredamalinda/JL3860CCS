@@ -8,7 +8,6 @@ def format_timestamp(ts):
     denver = utc.replace(tzinfo=datetime.timezone.utc).astimezone(pytz.timezone("America/Denver"))
     return denver.strftime("%b %d, %Y — %I:%M %p")
 
-=======
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
