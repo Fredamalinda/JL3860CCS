@@ -26,8 +26,10 @@
       {% endfor %}
     </select>
 
-    <label>Checklist (initial each line)</label>
-    <textarea name="checklist" rows="12" required>{{ checklist }}</textarea>
+    <label style="font-size: 20px;">
+      <input type="checkbox" name="completed" required>
+      I completed all tasks on this checklist
+    </label>
 
     <label>Photo (optional)</label>
     <input type="file" name="photo">
